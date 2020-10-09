@@ -29,11 +29,30 @@
   transition: all ease-in-out 0.3s;
 }
 
+.btn-small {
+  color: #fff;
+  width: 120px;
+  height: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 22px;
+  border-radius: 5px;
+  transition: all ease-in-out 0.3s;
+}
+
 .highlight {
   color: #e24257;
   text-decoration: none;
   font-weight: 500;
   outline: none;
+}
+
+.hidden {
+  display: none !important;
 }
 
 body {
@@ -100,4 +119,17 @@ body {
 
 .btn-secondary:hover {
   background-color: #0a684a;
+}
+
+/* COMPUTER MENU */
+
+.player-input {
+  height: 50px;
+  width: 400px;
+  font-size: 20px;
+  margin: 2rem 0;
+  padding: 1rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  border: none;
 }

@@ -133,3 +133,8 @@ body {
   outline: none;
   border: none;
 }
+
+/* PLAYER MENU */
+.player-menu {
+  height: 400px;
+}

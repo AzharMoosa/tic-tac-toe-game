@@ -9,7 +9,7 @@ const Board = () => {
   return (
     <div className={`game-board ${!gameStatus ? 'hidden' : ''}`}>
       {board.map((square, i) => (
-        <Square square={square} key={i} />
+        <Square square={square} i={i} key={i} />
       ))}
     </div>
   );

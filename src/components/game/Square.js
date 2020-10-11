@@ -17,13 +17,13 @@ const Square = ({ square, i }) => {
     setTitle,
     playerOne,
     playerTwo,
-    computerTurn
+    computerTurn,
   } = gameContext;
 
   // Play Turn
   const playTurn = (idx) => {
     // Square Not Empty
-    if (board[idx] !== '') {
+    if (board[idx] !== '' || !gameStatus) {
       return;
     }
     

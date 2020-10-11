@@ -3,13 +3,13 @@ import GameContext from '../context/gameContext';
 
 const Header = () => {
   const gameContext = useContext(GameContext);
-  const { playerOne, playerTwo, title } = gameContext;
+  const { playerOne, playerTwo, title, gameStatus } = gameContext;
 
   return (
     <div className="header">
-      <h3>{playerOne}</h3>
+      <h3>{`${gameStatus ? `${playerOne} - X` : ""}`}</h3>
       <h1>{title}</h1>
-      <h3>{playerTwo}</h3>
+      <h3>{`${gameStatus ? `${playerTwo} - O` : ""}`}</h3>
     </div>
   );
 };

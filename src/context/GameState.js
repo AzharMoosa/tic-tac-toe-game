@@ -7,7 +7,8 @@ import {
   CHANGE_PLAYER_TURN,
   SET_PLAYER_ONE,
   SET_PLAYER_TWO,
-  TOGGLE_AI
+  TOGGLE_AI,
+  SET_TITLE
 } from './types';
 
 const GameState = (props) => {
@@ -16,6 +17,7 @@ const GameState = (props) => {
     gameStatus: false,
     playerOne: '',
     playerTwo: '',
+    title: "Tic Tac Toe",
     playerTurn: 0,
     ai: false,
   };
@@ -44,6 +46,10 @@ const GameState = (props) => {
     dispatch({ type: CHANGE_PLAYER_TURN, payload: nextTurn });
   };
 
+  const setTitle = (name) => {
+    dispatch({ type: SET_TITLE, payload: name})
+  }
+
   // Set Player One's Name
   const setPlayerOne = (name) => {
     dispatch({ type: SET_PLAYER_ONE, payload: name})
@@ -58,6 +64,51 @@ const GameState = (props) => {
   const toggleAI = () => {
     dispatch({type: TOGGLE_AI, payload: !state.ai})
   }
+
+  // Check Winner
+  const checkWinner = (s) => {
+    // All Possible Winning Moves
+    const winningMoves = [[0, 1, 2],
+                          [3, 4, 5],
+                          [6, 7, 8],
+                          [0, 3, 6],
+                          [1, 4, 7],
+                          [2, 5, 8],
+                          [0, 4, 8],
+                          [2, 4, 6]]
+    
+    // Update Board
+    let symbol = s.symbol
+    let updatedBoard = state.board
+    updatedBoard[s.position] = symbol
+
+    // Loop Through All Possible Winning Moves
+    for (let i = 0; i < winningMoves.length; i++) {
+      if (updatedBoard[winningMoves[i][0]] === symbol && updatedBoard[winningMoves[i][1]] === symbol && updatedBoard[winningMoves[i][2]] === symbol) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  // Check Tie
+  const checkTie = (s) => {
+    // Update Board
+    let symbol = s.symbol
+    let updatedBoard = state.board
+    updatedBoard[s.position] = symbol
+
+    // No Winner
+    for (let i = 0; i < updatedBoard.length; i++) {
+      if (updatedBoard[i] === "") {
+        return false
+      }
+    }
+
+    return true
+
+  }
   
 
   return (
@@ -65,6 +116,7 @@ const GameState = (props) => {
       value={{
         board: state.board,
         gameStatus: state.gameStatus,
+        title: state.title,
         playerOne: state.playerOne,
         playerTwo: state.playerTwo,
         ai: state.ai,
@@ -74,7 +126,10 @@ const GameState = (props) => {
         changePlayerTurn,
         setPlayerOne,
         setPlayerTwo,
-        toggleAI
+        toggleAI,
+        checkWinner,
+        checkTie,
+        setTitle
       }}
     >
       {props.children}

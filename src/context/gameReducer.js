@@ -4,7 +4,8 @@ import {
   CHANGE_PLAYER_TURN,
   SET_PLAYER_ONE,
   SET_PLAYER_TWO,
-  TOGGLE_AI
+  TOGGLE_AI,
+  SET_TITLE
 } from './types';
 
 export default (state, action) => {
@@ -42,6 +43,11 @@ export default (state, action) => {
       return {
         ...state,
         ai: action.payload
+      }
+    case SET_TITLE:
+      return {
+        ...state,
+        title: action.payload
       }
     default:
       return state;

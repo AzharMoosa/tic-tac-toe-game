@@ -11,6 +11,7 @@ const Square = ({ square, i }) => {
     checkWinner,
     checkTie,
     toggleGame,
+    toggleMenu,
     gameStatus,
     setTitle,
     playerOne,
@@ -38,6 +39,8 @@ const Square = ({ square, i }) => {
       // Set Title to Winner
       let winner = playerTurn === 0 ? playerOne : playerTwo
       setTitle(winner + " Wins!")
+      // Toggle Main Menu
+      toggleMenu()
     }
 
     // Check Tie
@@ -46,6 +49,8 @@ const Square = ({ square, i }) => {
       toggleGame()
       // Set Title to Tie
       setTitle("Tie!")
+      // Toggle Main Menu
+      toggleMenu()
     }
 
     // Next Turn

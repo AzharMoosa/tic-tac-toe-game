@@ -8,13 +8,16 @@ import {
   SET_PLAYER_ONE,
   SET_PLAYER_TWO,
   TOGGLE_AI,
-  SET_TITLE
+  SET_TITLE,
+  CLEAR_BOARD,
+  TOGGLE_MENU
 } from './types';
 
 const GameState = (props) => {
   const initialState = {
     board: ['', '', '', '', '', '', '', '', ''],
     gameStatus: false,
+    mainMenu: true,
     playerOne: '',
     playerTwo: '',
     title: "Tic Tac Toe",
@@ -29,10 +32,19 @@ const GameState = (props) => {
     dispatch({ type: TOGGLE_GAME, payload: !state.gameStatus });
   };
 
+  const toggleMenu = () => {
+    dispatch({ type: TOGGLE_MENU, payload: !state.mainMenu})
+  }
+
   // Place Symbol
   const placeSymbol = (symbol) => {
     dispatch({ type: PLACE_SYMBOL, payload: symbol });
   };
+
+  // Clear Board
+  const clearBoard = () => {
+    dispatch({ type: CLEAR_BOARD})
+  }
 
   // Change Player's Turn
   const changePlayerTurn = () => {
@@ -110,18 +122,25 @@ const GameState = (props) => {
 
   }
   
+  const reset = () => {
+    clearBoard()
+    state.playerTurn = 0
+    state.title = "Tic Tac Toe"
+  }
 
   return (
     <GameContext.Provider
       value={{
         board: state.board,
         gameStatus: state.gameStatus,
+        mainMenu: state.mainMenu,
         title: state.title,
         playerOne: state.playerOne,
         playerTwo: state.playerTwo,
         ai: state.ai,
         playerTurn: state.playerTurn,
         toggleGame,
+        toggleMenu,
         placeSymbol,
         changePlayerTurn,
         setPlayerOne,
@@ -129,7 +148,8 @@ const GameState = (props) => {
         toggleAI,
         checkWinner,
         checkTie,
-        setTitle
+        setTitle,
+        reset
       }}
     >
       {props.children}

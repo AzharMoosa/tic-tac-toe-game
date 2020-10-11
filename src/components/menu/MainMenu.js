@@ -1,19 +1,23 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
+import GameContext from '../../context/gameContext';
 import ComputerMenu from './ComputerMenu';
 import PlayerMenu from './PlayerMenu';
 
 const MainMenu = () => {
-  const [mainMenu, setMainMenu] = useState(true);
+  const gameContext = useContext(GameContext);
+  const { toggleMenu, mainMenu, reset } = gameContext;
   const [computerMenu, setComputerMenu] = useState(false);
   const [playerMenu, setPlayerMenu] = useState(false);
 
   const togglePlayerMenu = () => {
-    setMainMenu(false);
+    toggleMenu()
+    reset()
     setPlayerMenu(true);
   };
 
   const toggleComputerMenu = () => {
-    setMainMenu(false);
+    toggleMenu()
+    reset()
     setComputerMenu(true);
   };
 

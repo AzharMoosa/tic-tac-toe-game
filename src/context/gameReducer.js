@@ -5,7 +5,9 @@ import {
   SET_PLAYER_ONE,
   SET_PLAYER_TWO,
   TOGGLE_AI,
-  SET_TITLE
+  SET_TITLE,
+  CLEAR_BOARD,
+  TOGGLE_MENU
 } from './types';
 
 export default (state, action) => {
@@ -15,6 +17,11 @@ export default (state, action) => {
         ...state,
         gameStatus: action.payload,
       };
+    case TOGGLE_MENU:
+      return {
+        ...state,
+        mainMenu: action.payload
+      }
     case PLACE_SYMBOL:
       return {
         ...state,
@@ -24,6 +31,11 @@ export default (state, action) => {
             : square,
         ),
       };
+    case CLEAR_BOARD:
+      return {
+        ...state,
+        board: ['', '', '', '', '', '', '', '', ''],
+      }
     case CHANGE_PLAYER_TURN:
       return {
         ...state,

@@ -4,10 +4,10 @@ import GameContext from '../../context/gameContext';
 
 const Board = () => {
   const gameContext = useContext(GameContext);
-  const { board, gameStatus } = gameContext;
+  const { board, firstTime } = gameContext;
 
   return (
-    <div className={`game-board ${!gameStatus ? 'hidden' : ''}`}>
+    <div className={`game-board ${firstTime ? 'hidden' : ''}`}>
       {board.map((square, i) => (
         <Square square={square} i={i} key={i} />
       ))}

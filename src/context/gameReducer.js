@@ -7,11 +7,17 @@ import {
   TOGGLE_AI,
   SET_TITLE,
   CLEAR_BOARD,
-  TOGGLE_MENU
+  TOGGLE_MENU,
+  TOGGLE_FIRST_TIME
 } from './types';
 
 export default (state, action) => {
   switch (action.type) {
+    case TOGGLE_FIRST_TIME:
+      return {
+        ...state,
+        firstTime: action.payload
+      }
     case TOGGLE_GAME:
       return {
         ...state,

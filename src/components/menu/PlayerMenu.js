@@ -5,7 +5,7 @@ const PlayerMenu = ({ playerMenu, setPlayerMenu }) => {
   const gameContext = useContext(GameContext);
   const [playerOneName, setPlayerOneName] = useState("")
   const [playerTwoName, setPlayerTwoName] = useState("")
-  const { toggleGame, setPlayerOne, setPlayerTwo } = gameContext;
+  const { toggleGame, setPlayerOne, setPlayerTwo, toggleFirstTime } = gameContext;
 
   const onClick = () => {
     if (playerOneName === "") {
@@ -21,6 +21,7 @@ const PlayerMenu = ({ playerMenu, setPlayerMenu }) => {
 
     setPlayerMenu(false);
     toggleGame();
+    toggleFirstTime()
   };
 
   return (

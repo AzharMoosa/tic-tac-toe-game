@@ -4,7 +4,7 @@ import GameContext from '../../context/gameContext';
 const ComputerMenu = ({ computerMenu, setComputerMenu }) => {
   const gameContext = useContext(GameContext);
   const [playerOneName, setPlayerOneName] = useState("")
-  const { toggleGame, toggleAI, setPlayerOne, setPlayerTwo } = gameContext;
+  const { toggleGame, toggleAI, setPlayerOne, setPlayerTwo, toggleFirstTime } = gameContext;
 
   const onClick = () => {
     if (playerOneName === "") {
@@ -17,6 +17,7 @@ const ComputerMenu = ({ computerMenu, setComputerMenu }) => {
     setComputerMenu(false);
     toggleGame();
     toggleAI()
+    toggleFirstTime()
   };
 
   return (

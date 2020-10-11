@@ -10,13 +10,15 @@ import {
   TOGGLE_AI,
   SET_TITLE,
   CLEAR_BOARD,
-  TOGGLE_MENU
+  TOGGLE_MENU,
+  TOGGLE_FIRST_TIME
 } from './types';
 
 const GameState = (props) => {
   const initialState = {
     board: ['', '', '', '', '', '', '', '', ''],
     gameStatus: false,
+    firstTime: true,
     mainMenu: true,
     playerOne: '',
     playerTwo: '',
@@ -26,6 +28,11 @@ const GameState = (props) => {
   };
 
   const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  // Toggle First Time
+  const toggleFirstTime = () => {
+    dispatch({type: TOGGLE_FIRST_TIME, payload: false})
+  }
 
   // Toggle GameStatus
   const toggleGame = () => {
@@ -126,16 +133,113 @@ const GameState = (props) => {
     clearBoard()
     state.playerTurn = 0
     state.title = "Tic Tac Toe"
+    state.ai = false
   }
 
   const computerTurn = () => {
-    // TODO
+    let board = state.board
+    let position = null;
+    let bestScore = -Infinity
+
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === "") {
+          let symbol = {
+            symbol: "O",
+            position: parseInt(i),
+          };
+          // Call Minimax
+          board[i] = "O"
+          let score = minimax(board, 0, true, symbol, 1)
+          board[i] = ""
+          // If Score Bigger Than Best Score
+          if (score > bestScore) {
+            bestScore = score
+            position = i
+          }
+        }
+    }
+
+    // Place Symbol
+    let symbol = {
+      symbol: "O",
+      position: parseInt(position),
+    };
+    placeSymbol(symbol);
+    
+    // Check Winner 
+    if (checkWinner(symbol)) {
+      // Toggle Game Status
+      toggleGame()
+      // Set Title to Winner
+      setTitle("Computer Wins!")
+      // Toggle Main Menu
+      toggleMenu()
+    }
+
+  }
+
+  const minimax = (board, depth, maximimzing, symbol, turn) => {
+    // Base Case - O = 1 | X = -1
+    let winningCase = checkWinner(symbol)
+    if (winningCase) {
+      return turn === 1 ? 1 : -1
+    }
+    // Tie = 0
+    let tieCase = checkTie(symbol)
+    if (tieCase) {
+      return 0
+    }
+    
+    if (maximimzing) {
+      let bestScore = -Infinity
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === "") {
+          // Symbol
+          let symbol = {
+            symbol: "X",
+            position: parseInt(i),
+          };
+          board[i] = "X"
+          // Call Minimax
+          let score = minimax(board, depth + 1, false, symbol, 0)
+          board[i] = ""
+          // If Score Bigger Than Best Score
+          if (score > bestScore) {
+            bestScore = score
+          }
+        }
+      }
+      return bestScore
+    } else {
+      let bestScore = Infinity
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === "") {
+          // Symbol
+          let symbol = {
+            symbol: "O",
+            position: parseInt(i),
+          };
+          board[i] = "O"
+          // Call Minimax
+          let score = minimax(board, depth + 1, true, symbol, 1)
+          board[i] = ""
+          // If Score Bigger Than Best Score
+          if (score < bestScore) {
+            bestScore = score
+          }
+        }
+      }
+      return bestScore
+    }
+
+    
   }
 
   return (
     <GameContext.Provider
       value={{
         board: state.board,
+        firstTime: state.firstTime,
         gameStatus: state.gameStatus,
         mainMenu: state.mainMenu,
         title: state.title,
@@ -154,7 +258,8 @@ const GameState = (props) => {
         checkTie,
         setTitle,
         reset,
-        computerTurn
+        computerTurn,
+        toggleFirstTime
       }}
     >
       {props.children}

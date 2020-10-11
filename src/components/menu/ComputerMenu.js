@@ -1,13 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import GameContext from '../../context/gameContext';
 
 const ComputerMenu = ({ computerMenu, setComputerMenu }) => {
   const gameContext = useContext(GameContext);
-  const { toggleGame } = gameContext;
+  const [playerOneName, setPlayerOneName] = useState("")
+  const { toggleGame, toggleAI, setPlayerOne, setPlayerTwo } = gameContext;
 
   const onClick = () => {
+    if (playerOneName === "") {
+      setPlayerOne("Player One")
+    } else {
+      setPlayerOne(playerOneName)
+    }
+
+    setPlayerTwo("Computer")
     setComputerMenu(false);
     toggleGame();
+    toggleAI()
   };
 
   return (
@@ -17,6 +26,8 @@ const ComputerMenu = ({ computerMenu, setComputerMenu }) => {
         type="text"
         className="player-input"
         placeholder="Enter Player Name..."
+        value={playerOneName}
+        onChange={(e) => setPlayerOneName(e.target.value)}
       />
       <button className="btn-small btn-secondary" onClick={onClick}>
         Play

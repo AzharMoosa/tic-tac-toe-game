@@ -128,6 +128,10 @@ const GameState = (props) => {
     state.title = "Tic Tac Toe"
   }
 
+  const computerTurn = () => {
+    // TODO
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -149,7 +153,8 @@ const GameState = (props) => {
         checkWinner,
         checkTie,
         setTitle,
-        reset
+        reset,
+        computerTurn
       }}
     >
       {props.children}

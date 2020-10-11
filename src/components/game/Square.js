@@ -8,6 +8,7 @@ const Square = ({ square, i }) => {
     changePlayerTurn,
     playerTurn,
     board,
+    ai,
     checkWinner,
     checkTie,
     toggleGame,
@@ -15,7 +16,8 @@ const Square = ({ square, i }) => {
     gameStatus,
     setTitle,
     playerOne,
-    playerTwo
+    playerTwo,
+    computerTurn
   } = gameContext;
 
   // Play Turn
@@ -54,7 +56,11 @@ const Square = ({ square, i }) => {
     }
 
     // Next Turn
-    changePlayerTurn();
+    if (ai) {
+      computerTurn()
+    } else {
+      changePlayerTurn();
+    }
   };
 
   return (

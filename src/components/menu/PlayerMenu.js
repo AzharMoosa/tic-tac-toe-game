@@ -1,11 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import GameContext from '../../context/gameContext';
 
 const PlayerMenu = ({ playerMenu, setPlayerMenu }) => {
   const gameContext = useContext(GameContext);
-  const { toggleGame } = gameContext;
+  const [playerOneName, setPlayerOneName] = useState("")
+  const [playerTwoName, setPlayerTwoName] = useState("")
+  const { toggleGame, setPlayerOne, setPlayerTwo } = gameContext;
 
   const onClick = () => {
+    if (playerOneName === "") {
+      setPlayerOne("Player One")
+    }
+
+    if (playerTwoName === "") {
+      setPlayerTwo("Player Two")
+    } else {
+      setPlayerOne(playerOneName);
+      setPlayerTwo(playerTwoName);
+    }
+
     setPlayerMenu(false);
     toggleGame();
   };
@@ -19,11 +32,15 @@ const PlayerMenu = ({ playerMenu, setPlayerMenu }) => {
         type="text"
         className="player-input"
         placeholder="Enter Player One Name..."
+        value={playerOneName}
+        onChange={(e) => setPlayerOneName(e.target.value)}
       />
       <input
         type="text"
         className="player-input"
         placeholder="Enter Player Two Name..."
+        value={playerTwoName}
+        onChange={(e) => setPlayerTwoName(e.target.value)}
       />
       <button className="btn-small btn-secondary" onClick={onClick}>
         Play

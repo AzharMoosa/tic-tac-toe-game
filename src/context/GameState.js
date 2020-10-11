@@ -5,14 +5,17 @@ import {
   TOGGLE_GAME,
   PLACE_SYMBOL,
   CHANGE_PLAYER_TURN,
+  SET_PLAYER_ONE,
+  SET_PLAYER_TWO,
+  TOGGLE_AI
 } from './types';
 
 const GameState = (props) => {
   const initialState = {
     board: ['', '', '', '', '', '', '', '', ''],
     gameStatus: false,
-    playerOne: 'Player One',
-    playerTwo: 'Player Two',
+    playerOne: '',
+    playerTwo: '',
     playerTurn: 0,
     ai: false,
   };
@@ -29,6 +32,7 @@ const GameState = (props) => {
     dispatch({ type: PLACE_SYMBOL, payload: symbol });
   };
 
+  // Change Player's Turn
   const changePlayerTurn = () => {
     let nextTurn = state.playerTurn;
     if (nextTurn === 0) {
@@ -39,6 +43,22 @@ const GameState = (props) => {
 
     dispatch({ type: CHANGE_PLAYER_TURN, payload: nextTurn });
   };
+
+  // Set Player One's Name
+  const setPlayerOne = (name) => {
+    dispatch({ type: SET_PLAYER_ONE, payload: name})
+  }
+
+  // Set Player One's Name
+  const setPlayerTwo = (name) => {
+    dispatch({ type: SET_PLAYER_TWO, payload: name})
+  }
+
+  // Toggle AI
+  const toggleAI = () => {
+    dispatch({type: TOGGLE_AI, payload: !state.ai})
+  }
+  
 
   return (
     <GameContext.Provider
@@ -52,6 +72,9 @@ const GameState = (props) => {
         toggleGame,
         placeSymbol,
         changePlayerTurn,
+        setPlayerOne,
+        setPlayerTwo,
+        toggleAI
       }}
     >
       {props.children}

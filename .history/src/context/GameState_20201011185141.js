@@ -194,7 +194,6 @@ const GameState = (props) => {
       return 0;
     }
 
-    // Maximizing
     if (maximimzing) {
       let bestScore = -Infinity;
       for (let i = 0; i < board.length; i++) {
@@ -216,7 +215,6 @@ const GameState = (props) => {
       }
       return bestScore;
     } else {
-      // Minimizing
       let bestScore = Infinity;
       for (let i = 0; i < board.length; i++) {
         if (board[i] === '') {
@@ -229,7 +227,7 @@ const GameState = (props) => {
           // Call Minimax
           let score = minimax(board, depth + 1, true, symbol, 1);
           board[i] = '';
-          // If Score Less Than Best Score
+          // If Score Bigger Than Best Score
           if (score < bestScore) {
             bestScore = score;
           }

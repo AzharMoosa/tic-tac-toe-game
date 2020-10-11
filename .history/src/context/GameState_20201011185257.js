@@ -229,7 +229,7 @@ const GameState = (props) => {
           // Call Minimax
           let score = minimax(board, depth + 1, true, symbol, 1);
           board[i] = '';
-          // If Score Less Than Best Score
+          // If Score Bigger Than Best Score
           if (score < bestScore) {
             bestScore = score;
           }
